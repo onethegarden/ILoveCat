@@ -8,8 +8,9 @@ import {
 const TEMPLATE = '<input type="text">';
 
 export default class SearchInput {
-  constructor({ $target, onSearch }) {
+  constructor({ $target, onSearch, onRandom }) {
     this.onSearch = onSearch;
+    this.onRandom = onRandom;
     this.$section = document.createElement("section");
     this.$section.className = "SearchSection";
     this.$currMode =
@@ -38,63 +39,79 @@ export default class SearchInput {
   };
 
   loadHistory = (e) => {
-    const SearchHistoryArea = document.querySelector('.SearchHistory');
-    const searchInput = document.querySelector('.SearchInput');
+    const SearchHistoryArea = document.querySelector(".SearchHistory");
+    const searchInput = document.querySelector(".SearchInput");
     searchInput.value = "";
     SearchHistoryArea.innerHTML = "";
 
     const searchHistory = getLocalStorage(storageKey.SEARCH_HISTORY);
-    
-    if(searchHistory){
+
+    if (searchHistory) {
       let cnt = 0;
 
-      for(let i = searchHistory.length-1; i>=0; i--){
-        if(cnt>4) break;
+      for (let i = searchHistory.length - 1; i >= 0; i--) {
+        if (cnt > 4) break;
 
         SearchHistoryArea.innerHTML += `<div class="keyword">${searchHistory[i]}</div>`;
         cnt++;
       }
     }
-    searchInput.focus()
-  }
+    searchInput.focus();
+  };
 
   searchKeyword = (e) => {
-    if(e.target.className !== 'keyword') return;
-    const SearchHistoryArea = document.querySelector('.SearchHistory');
+    if (e.target.className !== "keyword") return;
+    const SearchHistoryArea = document.querySelector(".SearchHistory");
     SearchHistoryArea.innerHTML = "";
     this.onSearch(e.target.innerText);
-  }
-  
+  };
 
+  getRandomCat = (e) => {
+    this.onRandom();
+
+  }
 
   render() {
     const searchInput = document.createElement("input");
 
     searchInput.placeholder = "고양이를 검색해보세요.|";
     searchInput.className = "SearchInput";
-    
+
     const searchHistory = document.createElement("div");
     searchHistory.className = "SearchHistory";
 
     const darkDiv = document.createElement("div");
-    darkDiv.style = "float:right";
-    const darkModeLabel = document.createElement("label");
-    darkModeLabel.innerText = "darkMode";
+    darkDiv.className = "darkDiv";
 
     const darkModeCheckBox = document.createElement("input");
     darkModeCheckBox.type = "checkbox";
     darkModeCheckBox.className = "darkCheckbox";
 
+    const darkModeLabel = document.createElement("label");
+    darkModeLabel.innerText = "darkMode";
+    darkModeLabel.className = "darkModeLabel";
+
+    const searchInputDiv = document.createElement("div");
+    searchInputDiv.className = "searchInputDiv";
+
+    const randomButton = document.createElement("input");
+    randomButton.type="button"
+    randomButton.value = "랜덤버튼";
+    randomButton.className = "randomBotton";
+
     darkModeLabel.appendChild(darkModeCheckBox);
     darkDiv.appendChild(darkModeLabel);
+    searchInputDiv.appendChild(searchInput);
+    searchInputDiv.appendChild(randomButton);
+
     this.$section.appendChild(darkDiv);
-    this.$section.appendChild(searchInput);
+    this.$section.appendChild(searchInputDiv);
     this.$section.appendChild(searchHistory);
     searchInput.focus();
 
     searchInput.addEventListener("keyup", (e) => {
-      const SearchHistoryArea = document.querySelector('.SearchHistory');
-      SearchHistoryArea.innerHTML = '';
+      const SearchHistoryArea = document.querySelector(".SearchHistory");
+      SearchHistoryArea.innerHTML = "";
       if (e.keyCode === 13) {
         const store = getLocalStore();
         store.push(e.target.value);
@@ -106,5 +123,6 @@ export default class SearchInput {
     searchHistory.addEventListener("click", this.searchKeyword);
     searchInput.addEventListener("click", this.loadHistory);
     darkModeCheckBox.addEventListener("click", this.toggleDarkMode);
+    randomButton.addEventListener("click", this.getRandomCat);
   }
 }

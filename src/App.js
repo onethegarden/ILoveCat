@@ -29,9 +29,23 @@ export default class App {
             this.setState(response.data);
           }
         }
-        // api.fetchCats(keyword).then(({ data }) => this.setState(data));
         this.loading.setState({ isLoading: false });
       },
+      onRandom: async () => {
+        this.loading.setState({ isLoading: true });
+
+        const response = await api.randomCat();
+        if (!response.message) {
+          if(response.data.length == 0){
+            this.setState("nothing");
+          }else{
+            //setLocalStorage(storageKey.LAST_SEARCH, response.data)
+            this.setState(response.data);
+          }
+        }
+        this.loading.setState({ isLoading: false });
+        
+      }
     });
 
     this.searchResult = new SearchResult({

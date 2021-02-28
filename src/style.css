@@ -60,9 +60,30 @@ body * {
 }
 
 .SearchInput {
-  width: 100%;
+  width: 90%;
+  float:left;
   font-size: 40px;
   padding: 10px 15px;
+}
+
+.searchInputDiv{
+  height: 80px;
+}
+
+.darkDiv{
+  height: 20px;
+}
+.randomBotton{
+  width:8%;
+  margin-left: 2%;
+  font-size: 1rem;
+  float: left;
+  padding: 20px 2px;
+  vertical-align: middle;
+}
+
+.darkModeLabel{
+  float:right;
 }
 
 .ImageInfo {
@@ -96,6 +117,9 @@ body * {
 
 .ImageInfo .content-wrapper img {
   width: 100%;
+}
+.ImageInfo .close {
+  cursor: pointer;
 }
 
 /* dark mode 처리

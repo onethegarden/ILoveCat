@@ -13,6 +13,14 @@ export default class ImageInfo {
     this.render();
   }
 
+  closeModal = (e) => {
+    console.log(e.target.className);
+    if(e.target.className=="ImageInfo" || e.target.className=="close"){
+      const ImageInfo = document.querySelector(".ImageInfo");
+      ImageInfo.style.display = "none";
+    }
+  }
+
   setState(nextData) {
     this.data = nextData;
     this.render();
@@ -35,6 +43,9 @@ export default class ImageInfo {
           </div>
         </div>`;
       this.$imageInfo.style.display = "block";
+
+      this.$imageInfo.addEventListener("click", this.closeModal);
+
     } else {
       this.$imageInfo.style.display = "none";
     }

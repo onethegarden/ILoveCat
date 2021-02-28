@@ -28,7 +28,7 @@ export default class SearchResult {
       .map(
         cat => `
           <div class="item">
-            <img src=${cat.url} alt=${cat.name} />
+            <img src=${cat.url} alt=${cat.name} title=${cat.name} loading="lazy" />
           </div>
         `
       )
