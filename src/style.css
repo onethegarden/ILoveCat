@@ -26,6 +26,9 @@ body * {
   font-family: Goyang;
 }
 
+html, body{
+  height: 100%;
+}
 *,
 *:before,
 *:after {
@@ -36,6 +39,7 @@ body * {
   margin: 1.5em auto;
   max-width: 1200px;
   column-gap: 1.5em;
+  height: 100%;
 }
 
 .SearchResult {
@@ -43,6 +47,22 @@ body * {
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
+}
+
+@media screen and (max-width: 992px){
+  .SearchResult {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+}
+@media screen and (max-width: 768px){
+  .SearchResult {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+@media screen and (max-width: 576px){
+  .SearchResult {
+    grid-template-columns: repeat(1, minmax(250px, 1fr));
+  }
 }
 
 .SearchResult img {
@@ -59,31 +79,46 @@ body * {
   width: 100%;
 }
 
-.SearchInput {
-  width: 90%;
-  float:left;
-  font-size: 40px;
-  padding: 10px 15px;
+.searchInputDiv{
+  margin-right:0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
-.searchInputDiv{
-  height: 80px;
+.SearchInput {
+  width: 40%;
+  font-size: 1.5em;
+  padding: 10px 15px;
+  border-radius: 1rem;
 }
 
 .darkDiv{
   height: 20px;
 }
+
 .randomBotton{
-  width:8%;
-  margin-left: 2%;
-  font-size: 1rem;
-  float: left;
-  padding: 20px 2px;
+  cursor:pointer;
+  margin-left: 0.1em;
+  font-size: 2em;
   vertical-align: middle;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
 }
 
+.SearchHistory{
+  display: flex;
+  justify-content: center;
+}
+.keyword{
+  border: 1px solid var(--color);
+  margin: 0.2em;
+  cursor: pointer;
+}
 .darkModeLabel{
-  float:right;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .ImageInfo {
@@ -111,16 +146,40 @@ body * {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--background);
-  border: 1px solid #eee;
+  border: 1px solid var(--color);
   border-radius: 5px;
 }
 
 .ImageInfo .content-wrapper img {
   width: 100%;
+  max-width:25em;
 }
 .ImageInfo .close {
   cursor: pointer;
 }
+
+.loading{
+  height: 100%;
+  width: 100%;
+}
+
+.loading .loadingDiv {
+  position:fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loadingImage{
+  width:10em;
+  border-radius: 5em;
+}
+
 
 /* dark mode 처리
 @media (prefers-color-scheme: dark) {

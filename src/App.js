@@ -22,29 +22,31 @@ export default class App {
       $target,
       onSearch: async (keyword) => {
         this.loading.setState({ isLoading: true });
-
-        const response = await api.fetchCats(keyword);
-        if (!response.message) {
-          if (response.data.length == 0) {
-            this.setState('nothing');
-          } else {
-            setLocalStorage(storageKey.LAST_SEARCH, response.data);
-            this.setState(response.data);
+        try {
+          const response = await api.fetchCats(keyword);
+          if (!response.ok) {
+            if (response.data.length == 0) {
+              this.setState('nothing');
+            } else {
+              setLocalStorage(storageKey.LAST_SEARCH, response.data);
+              this.setState(response.data);
+            }
           }
+        } catch (e) {
+          console.log(e);
         }
         this.loading.setState({ isLoading: false });
       },
       onRandom: async () => {
         this.loading.setState({ isLoading: true });
-
-        const response = await api.randomCat();
-        if (!response.message) {
-          if (response.data.length == 0) {
-            this.setState('nothing');
-          } else {
-            //setLocalStorage(storageKey.LAST_SEARCH, response.data)
+        try {
+          const response = await api.randomCat();
+          if (!response.ok) {
+            setLocalStorage(storageKey.LAST_SEARCH, response.data);
             this.setState(response.data);
           }
+        } catch (e) {
+          console.log(e);
         }
         this.loading.setState({ isLoading: false });
       },
@@ -55,25 +57,33 @@ export default class App {
       initialData: this.data,
       onClick: async (id) => {
         this.loading.setState({ isLoading: true });
-        const response = await api.fetchCatDetail(id);
-        this.loading.setState({ isLoading: false });
+        try {
+          const response = await api.fetchCatDetail(id);
 
-        if (!response.message) {
-          this.imageInfo.setState({
-            image: response.data,
-            visible: true,
-          });
+          if (!response.ok) {
+            this.imageInfo.setState({
+              image: response.data,
+              visible: true,
+            });
+          }
+        } catch (e) {
+          console.log(e);
         }
+        this.loading.setState({ isLoading: false });
       },
       onScroll: async () => {
         this.loading.setState({ isLoading: true });
-        const response = await api.randomCat();
-        this.loading.setState({ isLoading: false });
-        if (!response.message) {
-          let currData = this.data;
-          currData.push(...response.data);
-          this.setState(currData);
+        try {
+          const response = await api.randomCat();
+          if (!response.ok) {
+            let currData = this.data;
+            currData.push(...response.data);
+            this.setState(currData);
+          }
+        } catch (e) {
+          console.log(e);
         }
+        this.loading.setState({ isLoading: false });
       },
     });
 

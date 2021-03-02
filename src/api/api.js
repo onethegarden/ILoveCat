@@ -12,9 +12,7 @@ const request = async (url) => {
       throw error;
     }
   } catch (e) {
-    throw {
-      message: e.message,
-    };
+    console.log(e.message);
   }
 };
 
@@ -23,21 +21,21 @@ export const api = {
     try {
       return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
     } catch (e) {
-      console.log(error);
+      alert(e);
     }
   },
   fetchCatDetail: (id) => {
     try {
       return request(`${API_ENDPOINT}/api/cats/${id}`);
     } catch (e) {
-      console.log(error);
+      alert(e);
     }
   },
   randomCat: () => {
     try {
       return request(`${API_ENDPOINT}/api/cats/random50`);
     } catch (e) {
-      console.log(error);
+      alert(e);
     }
   },
 };
