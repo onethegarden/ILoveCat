@@ -1,12 +1,15 @@
-import SearchInput from "./component/SearchInput.js";
-import Loading from "./component/Loading.js";
-import SearchResult from "./component/SearchResult.js";
-import ImageInfo from "./component/ImageInfo.js";
-import { setLocalStorage, setLocalStore, getLocalStorage, storageKey } from "./storage/localStorage.js";
+import SearchInput from './component/SearchInput.js';
+import Loading from './component/Loading.js';
+import SearchResult from './component/SearchResult.js';
+import ImageInfo from './component/ImageInfo.js';
+import {
+  setLocalStorage,
+  setLocalStore,
+  getLocalStorage,
+  storageKey,
+} from './storage/localStorage.js';
 //import validator from './utils/validator.js';
-import { api } from "./api/api.js";
-
-console.log("app is running!");
+import { api } from './api/api.js';
 
 export default class App {
   $target = null;
@@ -22,10 +25,10 @@ export default class App {
 
         const response = await api.fetchCats(keyword);
         if (!response.message) {
-          if(response.data.length == 0){
-            this.setState("nothing");
-          }else{
-            setLocalStorage(storageKey.LAST_SEARCH, response.data)
+          if (response.data.length == 0) {
+            this.setState('nothing');
+          } else {
+            setLocalStorage(storageKey.LAST_SEARCH, response.data);
             this.setState(response.data);
           }
         }
@@ -36,16 +39,15 @@ export default class App {
 
         const response = await api.randomCat();
         if (!response.message) {
-          if(response.data.length == 0){
-            this.setState("nothing");
-          }else{
+          if (response.data.length == 0) {
+            this.setState('nothing');
+          } else {
             //setLocalStorage(storageKey.LAST_SEARCH, response.data)
             this.setState(response.data);
           }
         }
         this.loading.setState({ isLoading: false });
-        
-      }
+      },
     });
 
     this.searchResult = new SearchResult({
@@ -61,6 +63,16 @@ export default class App {
             image: response.data,
             visible: true,
           });
+        }
+      },
+      onScroll: async () => {
+        this.loading.setState({ isLoading: true });
+        const response = await api.randomCat();
+        this.loading.setState({ isLoading: false });
+        if (!response.message) {
+          let currData = this.data;
+          currData.push(...response.data);
+          this.setState(currData);
         }
       },
     });
@@ -79,17 +91,17 @@ export default class App {
         isLoading: true,
       },
     });
-    
+
     const initSearch = getLocalStorage(storageKey.SEARCH_HISTORY);
     const lastSearch = getLocalStorage(storageKey.LAST_SEARCH);
-    if(initSearch){
+    if (initSearch) {
       setLocalStore(storageKey.SEARCH_HISTORY, initSearch);
     }
-    if(lastSearch){
+    if (lastSearch) {
       setLocalStore(storageKey.LAST_SEARCH, lastSearch);
       this.setState(getLocalStorage(storageKey.LAST_SEARCH));
     }
-  } 
+  }
 
   setState(nextData) {
     this.data = nextData;

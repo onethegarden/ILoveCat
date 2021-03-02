@@ -3,8 +3,8 @@ export default class ImageInfo {
   data = null;
 
   constructor({ $target, data }) {
-    const $imageInfo = document.createElement("div");
-    $imageInfo.className = "ImageInfo";
+    const $imageInfo = document.createElement('div');
+    $imageInfo.className = 'ImageInfo';
     this.$imageInfo = $imageInfo;
     $target.appendChild($imageInfo);
 
@@ -15,11 +15,11 @@ export default class ImageInfo {
 
   closeModal = (e) => {
     console.log(e.target.className);
-    if(e.target.className=="ImageInfo" || e.target.className=="close"){
-      const ImageInfo = document.querySelector(".ImageInfo");
-      ImageInfo.style.display = "none";
+    if (e.target.className == 'ImageInfo' || e.target.className == 'close') {
+      const ImageInfo = document.querySelector('.ImageInfo');
+      ImageInfo.style.display = 'none';
     }
-  }
+  };
 
   setState(nextData) {
     this.data = nextData;
@@ -42,12 +42,11 @@ export default class ImageInfo {
             <div>태생: ${origin}</div>
           </div>
         </div>`;
-      this.$imageInfo.style.display = "block";
+      this.$imageInfo.style.display = 'block';
 
-      this.$imageInfo.addEventListener("click", this.closeModal);
-
+      this.$imageInfo.addEventListener('click', this.closeModal);
     } else {
-      this.$imageInfo.style.display = "none";
+      this.$imageInfo.style.display = 'none';
     }
   }
 }
