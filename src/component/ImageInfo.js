@@ -14,11 +14,10 @@ export default class ImageInfo {
   }
 
   closeModal = (e) => {
-    console.log(e.target.className);
-    if (e.target.className == 'ImageInfo' || e.target.className == 'close') {
-      const ImageInfo = document.querySelector('.ImageInfo');
-      ImageInfo.style.display = 'none';
-    }
+    if (e.target.className !== 'ImageInfo' && e.target.className !== 'close')
+      return;
+    const ImageInfo = document.querySelector('.ImageInfo');
+    ImageInfo.style.display = 'none';
   };
 
   setState(nextData) {

@@ -1,10 +1,10 @@
-:root[color-theme="light"]{
-  --background:#fff;
-  --color:#000;
+:root[color-theme='light'] {
+  --background: #fff;
+  --color: #000;
 }
-:root[color-theme='dark']{
-  --background:#000;
-  --color:#fff;
+:root[color-theme='dark'] {
+  --background: #000;
+  --color: #fff;
 }
 
 /*
@@ -26,7 +26,8 @@ body * {
   font-family: Goyang;
 }
 
-html, body{
+html,
+body {
   height: 100%;
 }
 *,
@@ -41,6 +42,10 @@ html, body{
   column-gap: 1.5em;
   height: 100%;
 }
+.noResult {
+  margin-top: 30%;
+  text-align: center;
+}
 
 .SearchResult {
   margin-top: 10px;
@@ -49,17 +54,17 @@ html, body{
   grid-gap: 10px;
 }
 
-@media screen and (max-width: 992px){
+@media screen and (max-width: 992px) {
   .SearchResult {
     grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .SearchResult {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
 }
-@media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
   .SearchResult {
     grid-template-columns: repeat(1, minmax(250px, 1fr));
   }
@@ -67,8 +72,10 @@ html, body{
 
 .SearchResult img {
   width: 100%;
-  height: 100%;
+  height: 80%;
   object-fit: cover;
+  border-radius: 0.5em;
+  border: 1px solid salmon;
 }
 
 .SearchResult .item {
@@ -77,46 +84,98 @@ html, body{
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
+  border: 1px solid salmon;
+  padding: 1em 1em;
+  border-radius: 0.5em;
 }
 
-.searchInputDiv{
-  margin-right:0px;
+.SearchResult .item:hover {
+  background: rgba(255, 140, 105, 0.3);
+  cursor: pointer;
+}
+
+.searchInputDiv {
+  margin-top: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .SearchInput {
-  width: 40%;
-  font-size: 1.5em;
+  font-size: 1em;
   padding: 10px 15px;
+  border: 2px solid salmon;
   border-radius: 1rem;
+  outline: 0;
+  width: 50%;
 }
 
-.darkDiv{
+@media screen and (max-width: 768px) {
+  .SearchInput {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .SearchInput {
+    width: 80%;
+  }
+}
+.darkDiv {
   height: 20px;
 }
 
-.randomBotton{
-  cursor:pointer;
-  margin-left: 0.1em;
+.randomBotton {
+  cursor: pointer;
   font-size: 2em;
   vertical-align: middle;
   border: none;
   background-color: rgba(0, 0, 0, 0);
+  outline: 0;
 }
 
-.SearchHistory{
+.SearchHistory {
   display: flex;
   justify-content: center;
 }
-.keyword{
-  border: 1px solid var(--color);
+
+.keywordList {
+  display: flex;
+  justify-content: flex-start;
+  width: 55%;
+  padding: 0;
+  margin: 0 0;
+  margin-top: 0.3em;
+}
+
+@media screen and (max-width: 576px) {
+  .keywordList {
+    width: 90%;
+  }
+}
+
+.keyword {
+  border: 1px solid salmon;
   margin: 0.2em;
   cursor: pointer;
+  font-size: 0.8em;
+  color: var(--color);
+  padding: 0.2em 0.5em;
+  border-radius: 0.3em;
+  background: rgba(255, 140, 105, 0.3);
+  display: inline-block;
 }
-.darkModeLabel{
+
+@media screen and (max-width: 576px) {
+  .keyword {
+    font-size: 0.5em;
+  }
+}
+
+.keyword:hover {
+  background-color: salmon;
+}
+
+.darkModeLabel {
   display: flex;
   justify-content: flex-end;
 }
@@ -152,19 +211,31 @@ html, body{
 
 .ImageInfo .content-wrapper img {
   width: 100%;
-  max-width:25em;
+  max-width: 25em;
 }
+
+@media screen and (max-width: 768px) {
+  .ImageInfo .content-wrapper img {
+    max-width: 80em;
+  }
+}
+@media screen and (max-width: 576px) {
+  .ImageInfo .content-wrapper img {
+    max-width: 100em;
+  }
+}
+
 .ImageInfo .close {
   cursor: pointer;
 }
 
-.loading{
+.loading {
   height: 100%;
   width: 100%;
 }
 
 .loading .loadingDiv {
-  position:fixed;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
@@ -175,11 +246,18 @@ html, body{
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.loadingImage{
-  width:10em;
+.loadingImage {
+  width: 10em;
   border-radius: 5em;
 }
-
+.sliderContainer {
+  display: inline-flex;
+  justify-content: space-between;
+}
+.slideImg {
+  width: 10em;
+  height: 10em;
+}
 
 /* dark mode 처리
 @media (prefers-color-scheme: dark) {
@@ -188,4 +266,4 @@ html, body{
     color: white;
   }
 }
-*?
+*/

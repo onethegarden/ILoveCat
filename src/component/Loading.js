@@ -13,7 +13,6 @@ export default class Loading {
   }
 
   render() {
-    console.log(this.data);
     const loading = document.querySelector('.loading');
     if (this.data.isLoading) {
       loading.innerHTML = `

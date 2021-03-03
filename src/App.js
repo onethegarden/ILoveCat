@@ -2,6 +2,8 @@ import SearchInput from './component/SearchInput.js';
 import Loading from './component/Loading.js';
 import SearchResult from './component/SearchResult.js';
 import ImageInfo from './component/ImageInfo.js';
+import DarkMode from './component/DarkModeToggle.js';
+import CatSection from './component/CatSection.js';
 import {
   setLocalStorage,
   setLocalStore,
@@ -17,6 +19,8 @@ export default class App {
 
   constructor($target) {
     this.$target = $target;
+
+    this.darkMode = new DarkMode({ $target });
 
     this.searchInput = new SearchInput({
       $target,
@@ -49,6 +53,20 @@ export default class App {
           console.log(e);
         }
         this.loading.setState({ isLoading: false });
+      },
+    });
+
+    this.catSection = new CatSection({
+      $target,
+      onLoad: async () => {
+        try {
+          const response = await api.randomCat();
+          if (!response.ok) {
+            this.catSection.setState(response.data);
+          }
+        } catch (e) {
+          console.log(e);
+        }
       },
     });
 
