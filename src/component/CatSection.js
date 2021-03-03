@@ -24,6 +24,10 @@ export default class CatSection {
         <li class="slideImg">slideImage2</li>
         <li class="slideImg">slideImage3</li>
     </ul>
+    <div class="navigator">
+      <div class="left"> < </div>
+      <div class="right"> > </div>
+    </div>
     `;
     this.$slideSection.innerHTML += html;
     console.log('cat section');
