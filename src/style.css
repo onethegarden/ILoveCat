@@ -209,6 +209,12 @@ body {
   border-radius: 5px;
 }
 
+@media screen and (max-width: 768px) {
+  .ImageInfo .content-wrapper {
+    width: 100%;
+  }
+}
+
 .ImageInfo .content-wrapper img {
   width: 100%;
   max-width: 25em;

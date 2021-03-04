@@ -14,7 +14,11 @@ export default class ImageInfo {
   }
 
   closeModal = (e) => {
-    if (e.target.className !== 'ImageInfo' && e.target.className !== 'close')
+    if (
+      e.keyCode !== 27 &&
+      e.target.className !== 'ImageInfo' &&
+      e.target.className !== 'close'
+    )
       return;
     const ImageInfo = document.querySelector('.ImageInfo');
     ImageInfo.style.display = 'none';
@@ -44,6 +48,7 @@ export default class ImageInfo {
       this.$imageInfo.style.display = 'block';
 
       this.$imageInfo.addEventListener('click', this.closeModal);
+      window.addEventListener('keyup', this.closeModal);
     } else {
       this.$imageInfo.style.display = 'none';
     }

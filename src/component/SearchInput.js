@@ -13,31 +13,10 @@ export default class SearchInput {
     this.onRandom = onRandom;
     this.$section = document.createElement('section');
     this.$section.className = 'SearchSection';
-    this.$currMode =
-      window.matchMedia('(prefers-color-scheme: dark)').matches == true
-        ? 'dark'
-        : 'light';
-
     $target.appendChild(this.$section);
     this.render();
-    this.setDarkMode();
     this.loadHistory();
   }
-
-  setDarkMode() {
-    document.documentElement.setAttribute('color-theme', this.$currMode);
-
-    const checkBox = document.querySelector('.darkCheckbox');
-    checkBox.checked = this.$currMode == 'dark' ? true : '';
-  }
-
-  toggleDarkMode = (e) => {
-    if (e.target.checked) {
-      document.documentElement.setAttribute('color-theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('color-theme', 'light');
-    }
-  };
 
   loadHistory = (e) => {
     const SearchHistoryArea = document.querySelector('.SearchHistory');

@@ -8,6 +8,7 @@ export default class DarkModeToggle {
         : 'light';
 
     this.render();
+    this.setDarkMode();
   }
 
   setDarkMode() {
