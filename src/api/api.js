@@ -2,40 +2,22 @@ const API_ENDPOINT =
   'https://oivhcpn8r9.execute-api.ap-northeast-2.amazonaws.com/dev';
 
 const request = async (url) => {
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      const error = await response.json();
-      throw error;
-    }
-  } catch (e) {
-    console.log(e.message);
+  const response = await fetch(url);
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw new Error(response.status);
   }
 };
 
 export const api = {
   fetchCats: (keyword) => {
-    try {
-      return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
-    } catch (e) {
-      alert(e);
-    }
+    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
   },
   fetchCatDetail: (id) => {
-    try {
-      return request(`${API_ENDPOINT}/api/cats/${id}`);
-    } catch (e) {
-      alert(e);
-    }
+    return request(`${API_ENDPOINT}/api/cats/${id}`);
   },
   randomCat: () => {
-    try {
-      return request(`${API_ENDPOINT}/api/cats/random50`);
-    } catch (e) {
-      alert(e);
-    }
+    return request(`${API_ENDPOINT}/api/cats/random50`);
   },
 };

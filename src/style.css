@@ -175,9 +175,13 @@ body {
   background-color: salmon;
 }
 
-.darkModeLabel {
+.darkDiv {
   display: flex;
   justify-content: flex-end;
+}
+
+.darkModeLabel {
+  width: fit-content;
 }
 
 .ImageInfo {

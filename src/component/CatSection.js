@@ -1,14 +1,12 @@
 export default class CatSection {
-  constructor({ $target, onLoad }) {
+  constructor({ $target }) {
     this.$target = $target;
-    this.onLoad = onLoad;
     this.$data = '';
     this.$slideSection = document.createElement('div');
     this.$slideSection.className = 'slideSection';
     this.$target.appendChild(this.$slideSection);
 
     this.$currSlide = 0; //슬라이드 현재 위치
-    this.onLoad();
   }
 
   setState(nextData) {

@@ -20,8 +20,7 @@ export default class SearchInput {
 
   loadHistory = (e) => {
     const SearchHistoryArea = document.querySelector('.SearchHistory');
-    const searchInput = document.querySelector('.SearchInput');
-    searchInput.value = '';
+    ('');
     SearchHistoryArea.innerHTML = '';
 
     const searchHistory = getLocalStorage(storageKey.SEARCH_HISTORY);
@@ -38,12 +37,25 @@ export default class SearchInput {
       }
       SearchHistoryArea.innerHTML += historyHtml;
     }
-    searchInput.focus();
   };
 
   searchKeyword = (e) => {
     if (e.target.className !== 'keyword') return;
     this.onSearch(e.target.innerText);
+  };
+
+  search = (e) => {
+    if (e.keyCode !== 13) return;
+
+    if (e.target.value.trim() === '') {
+      alert('검색어를 입력하세요');
+      return;
+    }
+    const store = getLocalStore();
+    store.push(e.target.value);
+    setLocalStorage(storageKey.SEARCH_HISTORY, store);
+    this.onSearch(e.target.value);
+    this.loadHistory();
   };
 
   getRandomCat = (e) => {
@@ -74,17 +86,10 @@ export default class SearchInput {
     this.$section.appendChild(searchHistory);
     searchInput.focus();
 
-    searchInput.addEventListener('keyup', (e) => {
-      if (e.keyCode === 13) {
-        const store = getLocalStore();
-        store.push(e.target.value);
-        setLocalStorage(storageKey.SEARCH_HISTORY, store);
-        this.onSearch(e.target.value);
-        this.loadHistory();
-      }
-    });
+    searchInput.addEventListener('keyup', this.search);
     searchHistory.addEventListener('click', this.searchKeyword);
     searchInput.addEventListener('click', this.loadHistory);
     randomButton.addEventListener('click', this.getRandomCat);
+    searchInput.focus();
   }
 }

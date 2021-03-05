@@ -10,6 +10,7 @@ import {
   getLocalStorage,
   storageKey,
 } from './storage/localStorage.js';
+import { errorMessage } from './utils/error.js';
 //import validator from './utils/validator.js';
 import { api } from './api/api.js';
 
@@ -37,7 +38,8 @@ export default class App {
             }
           }
         } catch (e) {
-          console.log(e);
+          alert(errorMessage.fail);
+          console.error(e);
         }
         this.loading.setState({ isLoading: false });
       },
@@ -50,7 +52,8 @@ export default class App {
             this.setState(response.data);
           }
         } catch (e) {
-          console.log(e);
+          alert(errorMessage.fail);
+          console.error(e);
         }
         this.loading.setState({ isLoading: false });
       },
@@ -58,16 +61,6 @@ export default class App {
 
     this.catSection = new CatSection({
       $target,
-      onLoad: async () => {
-        try {
-          const response = await api.randomCat();
-          if (!response.ok) {
-            this.catSection.setState(response.data);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      },
     });
 
     this.searchResult = new SearchResult({
@@ -85,7 +78,8 @@ export default class App {
             });
           }
         } catch (e) {
-          console.log(e);
+          alert(errorMessage.fail);
+          console.error(e);
         }
         this.loading.setState({ isLoading: false });
       },
@@ -99,7 +93,8 @@ export default class App {
             this.setState(currData);
           }
         } catch (e) {
-          console.log(e);
+          alert(errorMessage.fail);
+          console.error(e);
         }
         this.loading.setState({ isLoading: false });
       },
@@ -120,15 +115,36 @@ export default class App {
       },
     });
 
-    const initSearch = getLocalStorage(storageKey.SEARCH_HISTORY);
-    const lastSearch = getLocalStorage(storageKey.LAST_SEARCH);
-    if (initSearch) {
-      setLocalStore(storageKey.SEARCH_HISTORY, initSearch);
-    }
-    if (lastSearch) {
-      setLocalStore(storageKey.LAST_SEARCH, lastSearch);
-      this.setState(getLocalStorage(storageKey.LAST_SEARCH));
-    }
+    const init = () => {
+      const loadSection = async () => {
+        this.loading.setState({ isLoading: true });
+        try {
+          const response = await api.randomCat();
+          if (!response.ok) {
+            this.catSection.setState(response.data);
+          }
+        } catch (e) {
+          alert(errorMessage.loadFail);
+          console.error(e);
+        }
+        this.loading.setState({ isLoading: false });
+      };
+
+      const initSearch = getLocalStorage(storageKey.SEARCH_HISTORY);
+      const lastSearch = getLocalStorage(storageKey.LAST_SEARCH);
+
+      loadSection();
+
+      if (initSearch) {
+        setLocalStore(storageKey.SEARCH_HISTORY, initSearch);
+      }
+      if (lastSearch) {
+        setLocalStore(storageKey.LAST_SEARCH, lastSearch);
+        this.setState(getLocalStorage(storageKey.LAST_SEARCH));
+      }
+    };
+
+    init();
   }
 
   setState(nextData) {
