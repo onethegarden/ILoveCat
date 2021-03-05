@@ -37,6 +37,7 @@ export default class SearchResult {
       this.$searchResult.innerHTML = `
         <div class="noResult">찾는 고양이가 없네요😿</div>`;
     } else {
+      this.$searchResult.className = 'SearchResult';
       this.$searchResult.innerHTML = this.data
         .map(
           (cat) => `
