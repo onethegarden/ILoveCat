@@ -1,7 +1,8 @@
 export const infiniteScroll = (nextFunction) => {
   const items = document.querySelectorAll('.item');
   const lastItem = items[items.length - 1];
-  //console.log(lastItem);
+  if (!lastItem) return;
+
   const io = new IntersectionObserver((entry) => {
     if (entry[0].isIntersecting) {
       /*새로 할 일

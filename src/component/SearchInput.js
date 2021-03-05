@@ -87,6 +87,9 @@ export default class SearchInput {
     searchInput.focus();
 
     searchInput.addEventListener('keyup', this.search);
+    searchInput.addEventListener('click', (e) => {
+      e.target.value = '';
+    });
     searchHistory.addEventListener('click', this.searchKeyword);
     searchInput.addEventListener('click', this.loadHistory);
     randomButton.addEventListener('click', this.getRandomCat);
